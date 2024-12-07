@@ -1,25 +1,24 @@
 # Social Network API
 
 ## Description
-With how heavily Kanban boards are utilized across the development world, it's vital that users' data is kept secure. JSON Web Tokens (JWTs) help with this process. This project is meant to display my abilities in implementing such security and encode user's auth data. Without this feature, secure servers would not be able to fulfill and verify requests made on the users behalf. Although I didn't build out the direct code for this Kanban layout (starter code was provided) I most definitely implemented the JWTs and their functionality on the backend.
+
+Learning how to interact with a noSQL database can be a learning curve, especially for someone who has more experience with SQL DB structures - think Postgres ORDBMS. The goal of this application is to ensure an in-depth understanding of noSQL API creation and usage, via MongoDB and Mongoose ODM. Express.js will be used for routing along with JavaScript's DATE object for timestamp formatting. Although this project won't include an interactive frontend experience, all of the endpoints will be hit using Postman. Insomnia can be used as well.
 
 ## Table of Contents
 
 - [Description](#description)
-- [Deployment Link](#deployment)
+- [Video Walkthrough](#walkthrough)
 - [Installation](#installation)
 - [License](#license)
 - [Questions](#questions)
 
-## Deployment Link
+## Video Walkthrough
 
-This app is being deployed publicly via Render. If you would like to simply view the functionality of the app without building it locally, you can do so at this link: https://kanbanboard-ondi.onrender.com.
+This video walkthrough will depict overall functionality of the API endpoints and json objects being returned with use data. You will also see this data creation via Mongoose. Visit this link for the video:
 
 ## Installation
 
-Users can clone this code repo using an IDE of choice. They must ensure bcrypt, dotenv, express, jsonwebtoken, pg, sequelize and npm are all installed. Because this code base uses TypeScript, be mindful of the npm scripts used to run and build this app. Npm install is needed, but it should be noted that npm run render-build will have additional functionality, aside from simply performing an npm install. Upon doing so, the user should be redirected to a live localhost deployment. This app will also be deployed on Render.
-
-It should be noted that I was given starter code by means of the school. From there, I completed the noted "TODO" sections, and implemented the JWT functionality of this web dev.
+Users can clone this code repo using an IDE of choice. They must ensure npm, express, and mongodb are all installed. As always, be mindful of dependencies and package scripts listed in the package.json file. Upon doing so, the user will need to open Postman or Insomnia to test out their endpoint functionality.
 
 ## License
 
