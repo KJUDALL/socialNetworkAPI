@@ -2,7 +2,9 @@
 
 ## Description
 
-Learning how to interact with a noSQL database can be a learning curve, especially for someone who has more experience with SQL DB structures - think Postgres ORDBMS. The goal of this application is to ensure an in-depth understanding of noSQL API creation and usage, via MongoDB and Mongoose ODM. Express.js will be used for routing along with JavaScript's DATE object for timestamp formatting. Although this project won't include an interactive frontend experience, all of the endpoints will be hit using Postman. Insomnia can be used as well.
+Learning how to interact with a noSQL database can be a learning curve, especially for someone who has more experience with SQL DB structures - think Postgres. The goal of this application is to ensure an in-depth understanding of noSQL API creation and usage, via MongoDB and Mongoose ODM. Express.js will be used for routing, along with JavaScript's DATE object for timestamp formatting. Although this project won't include an interactive frontend experience, all of the endpoints will be hit using Postman. Insomnia can be used as well.
+
+Overall goal is to mimick something similar to that of a social media website - creating posts with timestamps, ability to add comments or reactions, deletion of said comments/reactions, etc. There will be a video walkthrough depicting the endpoints and their functionality. See "Video Walkthrough" below for the link.
 
 ## Table of Contents
 
