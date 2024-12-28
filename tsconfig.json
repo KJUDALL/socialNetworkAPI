@@ -7,8 +7,8 @@
 		"rootDir": "src" /* Specify the root folder within your source files. */,
 
 		/* Emit */
-		// "outDir": "dist" /* Specify an output folder for all emitted files. */,
-		// // "noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */
+		"outDir": "dist" /* Specify an output folder for all emitted files. */,
+		"noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */,
 
 		/* Modules */
 		"module": "ESNext" /* Specify what module code is generated. */,
@@ -33,5 +33,6 @@
 		"noImplicitOverride": true /* Ensure overriding members in derived classes are marked with an override modifier. */,
 		"useUnknownInCatchVariables": true /* Ensure 'unknown' is used for catch clause variables. */
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
 }

@@ -1,23 +1,32 @@
 {
-  "name": "module17challenge",
-  "version": "1.0.0",
-  "description": "Social Network API project. Creation and usabe of API endpoints via a noSQL Database (MongoDB).",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KJUDALL/socialNetworkAPI.git"
-  },
-  "author": "Kenzie Udall",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KJUDALL/socialNetworkAPI/issues"
-  },
-  "homepage": "https://github.com/KJUDALL/socialNetworkAPI#readme",
-  "dependencies": {
-    "express": "^4.21.2",
-    "mongoose": "^8.9.2"
-  }
+	"name": "module17challenge",
+	"version": "1.0.0",
+	"description": "Social Network API project. Creation and usabe of API endpoints via a noSQL Database (MongoDB).",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"build": "npx tsc",
+		"start": "npm run build && node dist/server.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"seed": "node dist/seeds/index.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/KJUDALL/socialNetworkAPI.git"
+	},
+	"author": "Kenzie Udall",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/KJUDALL/socialNetworkAPI/issues"
+	},
+	"homepage": "https://github.com/KJUDALL/socialNetworkAPI#readme",
+	"dependencies": {
+		"express": "^4.21.2",
+		"mongodb": "^6.12.0",
+		"mongoose": "^8.9.2"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.10.2"
+	}
 }
