@@ -1,4 +1,4 @@
-//sets up MongoDB connection
+//sets up MongoDB connection. Connect to DB
 import mongoose from "mongoose";
 
 const db = async (): Promise<typeof mongoose.connection> => {
