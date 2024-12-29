@@ -1,1 +1,0 @@
-//should contain the logic for handling requests related to those resources

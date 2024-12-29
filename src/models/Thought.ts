@@ -61,10 +61,10 @@ const thoughtSchema = new Schema<IThought>({
 });
 
 //retrieve length of thought's reaction array
-thoughtSchema.virtual('reactionCount').get(function (this: IThought) {
-    return this.reactions.length;
+thoughtSchema.virtual("reactionCount").get(function (this: IThought) {
+	return this.reactions.length;
 });
-    
+
 const Thought = model<IThought>("Thought", thoughtSchema);
 
-export default Thought;
+export { Thought, reactionSchema, IReaction };

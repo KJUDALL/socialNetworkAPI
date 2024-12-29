@@ -1,1 +1,139 @@
 //should contain the logic for handling requests related to those resources
+import { Request, Response } from "express";
+import { Types } from "mongoose";
+import { Thought } from "../models/Thought";
+import { IReaction } from "../models/Thought";
+
+//Create new thought (post)
+export const createThought = async (req: Request, res: Response) => {
+	try {
+		const { thoughtText, username, userId } = req.body;
+		const newThought = await Thought.create({ thoughtText, username });
+
+		//Push created thought _id to associated user's thoughts array field
+		await User.findByIdAndUpdate(userId, {
+			$push: { thoughts: newThought._id },
+		});
+
+		res.status(201).json(newThought);
+	} catch (error) {
+		res.status(400).json("Failed to create new thought.");
+	}
+};
+
+//Get all thoughts
+export const getAllThoughts = async (_req: Request, res: Response) => {
+	try {
+		const thoughts = await Thought.find();
+		res.status(200).json(thoughts);
+	} catch (error) {
+		res.status(400).json("Failed to get all thoughts.");
+	}
+};
+
+//Get single thought by its _id
+export const getSingleThoughtById = async (req: Request, res: Response) => {
+	try {
+		const { thoughtId } = req.params;
+		const thought = await Thought.findById(thoughtId);
+
+		if (!thought) {
+			return res.status(400).json("No thought found.");
+		}
+
+		return res.status(200).json(thought);
+	} catch (error) {
+		return res.status(400).json("Failed to get single thought.");
+	}
+};
+
+//Update thought by its _id (post)
+export const updateSingleThought = async (req: Request, res: Response) => {
+	try {
+		const { thoughtId } = req.params;
+		const updatedThought = await Thought.findByIdAndUpdate(
+			thoughtId,
+			req.body,
+			{ new: true }
+		);
+
+		if (!updatedThought) {
+			return res.status(400).json("No thought found.");
+		}
+
+		return res.status(200).json(updatedThought);
+	} catch (error) {
+		return res.status(400).json("Failed to updated thought.");
+	}
+};
+
+//Delete thought by its _id
+export const deleteThought = async (req: Response, res: Response) => {
+	try {
+		const { thoughtId } = req.params;
+		const deletedThought = await Thought.findByIdAndDelete(thoughtId);
+
+		if (!deletedThought) {
+			return res.status(400).json("No thought found.");
+		}
+		// Remove thought's _id from associated user's thoughts array
+		await User.findByIdAndUpdate(deleteThought.userId, {
+			$pull: { thoughts: thoughtId },
+		});
+
+		return res.status(200).json("Thought deleted!");
+	} catch (error) {
+		return res.status(400).json("Failed to delete thought.");
+	}
+};
+
+//Add reaction to a thought
+export const addReaction = async (req: Request, res: Response) => {
+	try {
+		const { thoughtId } = req.params;
+		const { reactionBody, username } = req.body;
+		const thought = await Thought.findById(thoughtId);
+
+		if (!thought) {
+			return res.status(404).json("No thought found.");
+		}
+
+		const newReaction: IReaction = {
+			reactionId: new Types.ObjectId(),
+			reactionBody,
+			username,
+			createdAt: new Date(),
+		};
+
+		thought.reactions.push(newReaction);
+		await thought.save();
+
+		return res.status(200).json("Reaction added!");
+	} catch (error) {
+		return res.status(404).json("Failed to add reaction.");
+	}
+};
+
+//Delete reaction by reactionId value
+export const deleteReaction = async (req: Request, res: Response) => {
+	try {
+		const { thoughtId, reactionId } = req.params;
+		const thought = await Thought.findById(thoughtId);
+
+		if (!thought) {
+			return res.status(400).json("No thought found to remove reaction.");
+		}
+
+        const reaction = thought.reactions.id(reactionId);
+        if (!reaction) {
+            return res.status(400).json('No reaction found.');
+        }
+
+        reaction.remove();
+		await thought.save();
+
+		return res.status(200).json("Reaction deleted!");
+	} catch (error) {
+		return res.status(400).json("Failed to delete reaction.");
+	}
+};
