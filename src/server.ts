@@ -27,10 +27,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//Add friend
-app.post("/friends", (req, res) => {});
-//Remove friend
-
 //Find all users
 app.get("/users", async (_req, res) => {
 	try {
@@ -65,7 +61,7 @@ app.post("/thought", addThought);
 //Remove thought
 app.delete("/thought/:thoughtId", deleteThought);
 
-//Thought routes
+//Thoughts routes
 app.use("/api/thoughts", thoughtsRoutes);
 
 //Start the server

@@ -13,13 +13,22 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 //Update User
+export const updateUser = async (req: Request, res: Response) => {
+	try {
+		const 
+	}
+}
 
 //Delete User 
 
+
 //Get all users
+
 
 //Get single user by Id
 
+
 //Add friend
+
 
 //Remove friend
