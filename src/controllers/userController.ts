@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { User } from "../models";
 
+//Create new user
 export const createUser = async (req: Request, res: Response) => {
 	try {
 		const { username, email } = req.body;
@@ -10,3 +11,15 @@ export const createUser = async (req: Request, res: Response) => {
 		res.status(400).json('Failed to create new user.');
 	}
 };
+
+//Update User
+
+//Delete User 
+
+//Get all users
+
+//Get single user by Id
+
+//Add friend
+
+//Remove friend
