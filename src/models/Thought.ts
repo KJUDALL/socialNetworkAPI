@@ -29,7 +29,7 @@ const reactionSchema = new Schema(
 	}
 );
 
-interface IReaction extends Document {
+interface IReaction {
 	reactionId: Types.ObjectId;
 	reactionBody: string;
 	username: string;
@@ -37,6 +37,7 @@ interface IReaction extends Document {
 }
 
 interface IThought extends Document {
+	_id: Types.ObjectId;
 	thoughtText: string;
 	createdAt: Date;
 	username: string;

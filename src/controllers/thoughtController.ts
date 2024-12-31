@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 import { Thought } from "../models/Thought";
+import User from "../models/User";
 import { IReaction } from "../models/Thought";
 
 //Create new thought (post)
@@ -68,7 +69,7 @@ export const updateSingleThought = async (req: Request, res: Response) => {
 };
 
 //Delete thought by its _id
-export const deleteThought = async (req: Response, res: Response) => {
+export const deleteThought = async (req: Request, res: Response) => {
 	try {
 		const { thoughtId } = req.params;
 		const deletedThought = await Thought.findByIdAndDelete(thoughtId);
@@ -77,7 +78,7 @@ export const deleteThought = async (req: Response, res: Response) => {
 			return res.status(400).json("No thought found.");
 		}
 		// Remove thought's _id from associated user's thoughts array
-		await User.findByIdAndUpdate(deleteThought.userId, {
+		await User.findByIdAndUpdate(deletedThought.username, {
 			$pull: { thoughts: thoughtId },
 		});
 
@@ -124,12 +125,14 @@ export const deleteReaction = async (req: Request, res: Response) => {
 			return res.status(400).json("No thought found to remove reaction.");
 		}
 
-        const reaction = thought.reactions.id(reactionId);
-        if (!reaction) {
-            return res.status(400).json('No reaction found.');
-        }
+		const reactionIndex = thought.reactions.findIndex(
+			(reaction: IReaction) => reaction.reactionId.toString() === reactionId
+		);
+		if (reactionIndex === -1) {
+			return res.status(400).json("No reaction found.");
+		}
 
-        reaction.remove();
+		thought.reactions.splice(reactionIndex, 1);
 		await thought.save();
 
 		return res.status(200).json("Reaction deleted!");
