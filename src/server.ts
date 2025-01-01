@@ -1,24 +1,8 @@
 //This should be your entry point, where you set up your Express app and middleware
-import express from "express";
-import mongoose from "mongoose";
+import express, { Request, Response, NextFunction } from "express";
 import db from "./config/connection";
-//include all controllers here
-import {
-	createUser,
-	updateUser,
-	deleteUser,
-	getUserById,
-} from "./controllers/userController";
-import {
-	createThought,
-	updateSingleThought,
-	addReaction,
-	deleteReaction,
-	deleteThought,
-} from "./controllers/thoughtController";
-//include all models here
-import { User } from "./models";
 import thoughtsRoutes from "./routes/api/thoughtsRoutes";
+import userRoutes from "./routes/api/userRoutes";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -27,44 +11,17 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//Find all users
-app.get("/users", async (_req, res) => {
-	try {
-		const result = await User.find({});
-		res.status(200).json(result);
-	} catch (err) {
-		res.status(500).send({ message: "Internal server error." });
-	}
+//Error handling in middleware
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    console.error(err.stack);
+    return res.status(500).json('Uh-oh something went wrong!');
 });
 
-//Find all users by id
-app.get("/users/:userId", getUserById);
-
-//Update user
-app.put("/user/:userId", updateUser);
-
-//Create user
-app.post("/user", createUser);
-
-//Remove user
-app.delete("/user/:userId", deleteUser);
-
-//Add reaction
-app.post("/reaction/:reactionId", addReaction);
-
-//Remove reaction
-app.delete("/reaction/:reactionId", deleteReaction);
-
-//Add thought
-app.post("/thought", addThought);
-
-//Remove thought
-app.delete("/thought/:thoughtId", deleteThought);
-
-//Thoughts routes
+//API Routes
 app.use("/api/thoughts", thoughtsRoutes);
+app.use("/api/users", userRoutes);
 
-//Start the server
+//Connect to DB, Start the server
 db()
 	.then((db) => {
 		db.once("open", () => {

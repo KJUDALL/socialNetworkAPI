@@ -9,19 +9,19 @@ import {
 	deleteReaction,
 } from "../../controllers/thoughtController";
 
-const router = Router();
+const thoughtsRoutes = Router();
 
-// api/thoughts
-router.route("/").get(getAllThoughts).post(createThought);
+// Route to create thought and get all thoughts
+thoughtsRoutes.route("/").get(getAllThoughts).post(createThought);
 
-// api/thoughts/:thoughtId
-router
+// Route to get a single thought, and update or delete it (api/thoughts/:thoughtId)
+thoughtsRoutes
 	.route("/:thoughtId")
 	.get(getSingleThoughtById)
 	.put(updateSingleThought)
-	.delete(deleteThought);
+	.delete(deleteThought)
 
-// api/thoughts/:thoughtId/reactions
-router.route("/:thoughtId/reactions").post(addReaction).delete(deleteReaction);
+// Route to add or remove a reaction (api/thoughts/:thoughtId/reactions)
+thoughtsRoutes.route("/:thoughtId/reactions").post(addReaction).delete(deleteReaction);
 
-export default router;
+export default thoughtsRoutes;
