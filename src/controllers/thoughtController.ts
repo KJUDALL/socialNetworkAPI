@@ -23,7 +23,10 @@ export const createThought = async (req: Request, res: Response) => {
 };
 
 //Get all thoughts
-export const getAllThoughts = async (_req: Request, res: Response) => {
+export const getAllThoughts = async (
+	_req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const thoughts = await Thought.find();
 		res.status(200).json(thoughts);
@@ -33,23 +36,30 @@ export const getAllThoughts = async (_req: Request, res: Response) => {
 };
 
 //Get single thought by its _id
-export const getSingleThoughtById = async (req: Request, res: Response) => {
+export const getSingleThoughtById = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { thoughtId } = req.params;
 		const thought = await Thought.findById(thoughtId);
 
 		if (!thought) {
-			return res.status(400).json("No thought found.");
+			res.status(400).json("No thought found.");
+			return;
 		}
 
-		return res.status(200).json(thought);
+		res.status(200).json(thought);
 	} catch (error) {
-		return res.status(400).json("Failed to get single thought.");
+		res.status(400).json("Failed to get single thought.");
 	}
 };
 
 //Update thought by its _id (post)
-export const updateSingleThought = async (req: Request, res: Response) => {
+export const updateSingleThought = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { thoughtId } = req.params;
 		const updatedThought = await Thought.findByIdAndUpdate(
@@ -59,44 +69,53 @@ export const updateSingleThought = async (req: Request, res: Response) => {
 		);
 
 		if (!updatedThought) {
-			return res.status(400).json("No thought found.");
+			res.status(400).json("No thought found.");
+			return;
 		}
 
-		return res.status(200).json(updatedThought);
+		res.status(200).json(updatedThought);
 	} catch (error) {
-		return res.status(400).json("Failed to updated thought.");
+		res.status(400).json("Failed to updated thought.");
 	}
 };
 
 //Delete thought by its _id
-export const deleteThought = async (req: Request, res: Response) => {
+export const deleteThought = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { thoughtId } = req.params;
 		const deletedThought = await Thought.findByIdAndDelete(thoughtId);
 
 		if (!deletedThought) {
-			return res.status(400).json("No thought found.");
+			res.status(400).json("No thought found.");
+			return;
 		}
 		// Remove thought's _id from associated user's thoughts array
 		await User.findByIdAndUpdate(deletedThought.username, {
 			$pull: { thoughts: thoughtId },
 		});
 
-		return res.status(200).json("Thought deleted!");
+		res.status(200).json("Thought deleted!");
 	} catch (error) {
-		return res.status(400).json("Failed to delete thought.");
+		res.status(400).json("Failed to delete thought.");
 	}
 };
 
 //Add reaction to a thought
-export const addReaction = async (req: Request, res: Response) => {
+export const addReaction = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { thoughtId } = req.params;
 		const { reactionBody, username } = req.body;
 		const thought = await Thought.findById(thoughtId);
 
 		if (!thought) {
-			return res.status(404).json("No thought found.");
+			res.status(404).json("No thought found.");
+			return;
 		}
 
 		const newReaction: IReaction = {
@@ -109,34 +128,38 @@ export const addReaction = async (req: Request, res: Response) => {
 		thought.reactions.push(newReaction);
 		await thought.save();
 
-		return res.status(200).json("Reaction added!");
+		res.status(200).json("Reaction added!");
 	} catch (error) {
-		return res.status(404).json("Failed to add reaction.");
+		res.status(404).json("Failed to add reaction.");
 	}
 };
 
 //Delete reaction by reactionId value
-export const deleteReaction = async (req: Request, res: Response) => {
+export const deleteReaction = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { thoughtId, reactionId } = req.params;
 		const thought = await Thought.findById(thoughtId);
 
 		if (!thought) {
-			return res.status(400).json("No thought found to remove reaction.");
+			res.status(400).json("No thought found to remove reaction.");
+			return;
 		}
 
 		const reactionIndex = thought.reactions.findIndex(
 			(reaction: IReaction) => reaction.reactionId.toString() === reactionId
 		);
 		if (reactionIndex === -1) {
-			return res.status(400).json("No reaction found.");
+			res.status(400).json("No reaction found.");
 		}
 
 		thought.reactions.splice(reactionIndex, 1);
 		await thought.save();
 
-		return res.status(200).json("Reaction deleted!");
+		res.status(200).json("Reaction deleted!");
 	} catch (error) {
-		return res.status(400).json("Failed to delete reaction.");
+		res.status(400).json("Failed to delete reaction.");
 	}
 };

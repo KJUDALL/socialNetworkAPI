@@ -1,8 +1,8 @@
 //This should be your entry point, where you set up your Express app and middleware
 import express, { Request, Response, NextFunction } from "express";
 import db from "./config/connection";
-import thoughtsRoutes from "./routes/api/thoughtsRoutes";
-import userRoutes from "./routes/api/userRoutes";
+import { thoughtsRoutes } from "./routes/api/thoughtsRoutes";
+import { userRoutes } from "./routes/api/userRoutes";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Error handling in middleware
-app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    console.error(err.stack);
-    return res.status(500).json('Uh-oh something went wrong!');
+app.use((err: any, _req: Request, res: Response, _next: NextFunction): void => {
+	console.error(err.stack);
+	res.status(500).json("Uh-oh something went wrong!");
 });
 
 //API Routes

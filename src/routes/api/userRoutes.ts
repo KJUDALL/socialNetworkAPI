@@ -19,4 +19,4 @@ userRoutes
 	.put(updateUser)
 	.delete(deleteUser);
 
-export default userRoutes;
+export { userRoutes };

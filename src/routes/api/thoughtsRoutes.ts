@@ -19,9 +19,12 @@ thoughtsRoutes
 	.route("/:thoughtId")
 	.get(getSingleThoughtById)
 	.put(updateSingleThought)
-	.delete(deleteThought)
+	.delete(deleteThought);
 
 // Route to add or remove a reaction (api/thoughts/:thoughtId/reactions)
-thoughtsRoutes.route("/:thoughtId/reactions").post(addReaction).delete(deleteReaction);
+thoughtsRoutes
+	.route("/:thoughtId/reactions")
+	.post(addReaction)
+	.delete(deleteReaction);
 
-export default thoughtsRoutes;
+export { thoughtsRoutes };
