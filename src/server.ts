@@ -23,13 +23,12 @@ app.use("/api/users", userRoutes);
 
 //Connect to DB, Start the server
 db()
-	.then((db) => {
-		db.once("open", () => {
-			app.listen(PORT, () => {
-				console.log("API server running on ${PORT}!");
-			});
+	.then(() => {
+		console.log("Database connection successful.");
+		app.listen(PORT, () => {
+			console.log(`API server running on ${PORT}!`);
 		});
 	})
-	.catch((error) => {
-		console.error("Failed to connect to DB.", error);
+	.catch((err) => {
+		console.error("Failed to connect to DB.", err);
 	});
