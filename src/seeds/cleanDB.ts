@@ -1,4 +1,5 @@
-import { User, Thought } from "../models/index";
+import { Thought } from "../models/Thought";
+import { User } from "../models/User";
 import { connectToDb } from ".";
 
 //remove existing data

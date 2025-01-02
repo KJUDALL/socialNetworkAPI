@@ -2,14 +2,12 @@
 	"name": "module17challenge",
 	"version": "1.0.0",
 	"description": "Social Network API project. Creation and usabe of API endpoints via a noSQL Database (MongoDB).",
-	"main": "index.js",
-	"type": "module",
+	"main": "dist/server.js",
 	"scripts": {
 		"build": "npx tsc",
 		"start": "npm run build && node dist/server.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean": "node dist/seeds/cleanDB.js",
-		"seed": "node dist/seeds/index.js"
+		"seed": "node dist/seeds/data.js"
 	},
 	"repository": {
 		"type": "git",
@@ -28,6 +26,8 @@
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.0",
-		"@types/node": "^22.10.2"
+		"@types/node": "^22.10.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.2"
 	}
 }

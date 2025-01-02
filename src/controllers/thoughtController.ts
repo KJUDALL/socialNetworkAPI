@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 import { Thought } from "../models/Thought";
-import User from "../models/User";
+import { User } from "../models/User";
 import { IReaction } from "../models/Thought";
 
 //Create new thought (post)

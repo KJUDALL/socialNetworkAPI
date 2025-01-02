@@ -55,4 +55,4 @@ userSchema.set("toObject", {
 
 const User = model("User", userSchema);
 
-export default User;
+export { User };
