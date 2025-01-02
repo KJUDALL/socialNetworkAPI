@@ -92,13 +92,13 @@ export const deleteThought = async (
 			res.status(400).json("No thought found.");
 			return;
 		}
-		// Remove thought's _id from associated user's thoughts array
-		await User.findByIdAndUpdate(deletedThought.username, {
-			$pull: { thoughts: thoughtId },
-		});
-
+		// // Remove thought's _id from associated user's thoughts array
+		// await User.findByIdAndUpdate(deletedThought.username, {
+		// 	$pull: { thoughts: thoughtId },
+		// });
 		res.status(200).json("Thought deleted!");
 	} catch (error) {
+		console.error(error);
 		res.status(400).json("Failed to delete thought.");
 	}
 };
